@@ -1,0 +1,511 @@
+{% extends "base.html" %} {% block content %}
+<div class="container-xxl py-5">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-6">
+        <div class="card border-0 shadow">
+          <div class="card-body">
+            <h3 class="text-center mb-4">Create an Account</h3>
+            <form
+              method="post"
+              action="{% url 'signup' %}"
+              x-data="formValidation()"
+            >
+              {% csrf_token %}
+              <div id="form-messages"></div>
+
+              <!-- Username -->
+              <div class="mb-3">
+                <label for="id_username" class="form-label">Username</label>
+                <input
+                  type="text"
+                  id="id_username"
+                  name="username"
+                  class="form-control"
+                  placeholder="Enter a username"
+                  x-model="username"
+                  x-on:input="hasErrors"
+                  required
+                />
+                <template x-if="usernameError">
+                  <div
+                    class="text-danger mt-1 small"
+                    x-text="usernameError"
+                  ></div>
+                </template>
+              </div>
+
+              <div class="mb-3">
+                <label for="id_email" class="form-label">Email</label>
+                <input
+                  type="email"
+                  id="id_email"
+                  name="email"
+                  class="form-control"
+                  placeholder="Enter your email"
+                  x-model="email"
+                  x-on:input="hasErrors"
+                  required
+                />
+                <template x-if="emailError">
+                  <div class="text-danger mt-1 small" x-text="emailError"></div>
+                </template>
+              </div>
+
+              <!-- Password -->
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label for="id_password1" class="form-label">Password</label>
+                  <input
+                    type="password"
+                    id="id_password1"
+                    name="password1"
+                    class="form-control"
+                    placeholder="Enter your password"
+                    x-model="password"
+                    x-on:input="hasErrors"
+                    required
+                  />
+                  <template x-if="passwordError">
+                    <div
+                      class="text-danger mt-1 small"
+                      x-text="passwordError"
+                    ></div>
+                  </template>
+                </div>
+
+                <div class="col-md-6">
+                  <label for="id_password2" class="form-label"
+                    >Confirm Password</label
+                  >
+                  <input
+                    type="password"
+                    id="id_password2"
+                    name="password2"
+                    class="form-control"
+                    placeholder="Re-enter your password"
+                    x-model="password2"
+                    x-on:input="hasErrors"
+                    required
+                  />
+                  <template x-if="passwordMatchError">
+                    <div
+                      class="text-danger mt-1 small"
+                      x-text="passwordMatchError"
+                    ></div>
+                  </template>
+                </div>
+              </div>
+
+              <!-- Mobile Number and Referral Code (One row) -->
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label for="mobile" class="form-label">Mobile Number</label>
+                  <div class="input-group">
+                    <span class="input-group-text">+91</span>
+                    <!-- Hard-coded country code -->
+                    <input
+                      type="text"
+                      id="mobile"
+                      name="mobile"
+                      class="form-control"
+                      placeholder="Enter Phone Number"
+                      x-model="mobile"
+                      x-on:input="hasErrors"
+                      required
+                    />
+                  </div>
+                  <template x-if="mobileError">
+                    <div
+                      class="text-danger mt-1 small"
+                      x-text="mobileError"
+                    ></div>
+                  </template>
+                </div>
+
+                <div class="col-md-6">
+                  <label for="referral_code" class="form-label"
+                    >Referral Code (Optional)</label
+                  >
+                  <input
+                    type="text"
+                    id="referral_code"
+                    name="referral_code"
+                    class="form-control"
+                    placeholder="Enter Referral Code"
+                    x-model="referralCode"
+                    x-on:input="hasErrors"
+                  />
+                  <template x-if="referralCodeError">
+                    <div
+                      class="text-danger mt-1 small"
+                      x-text="referralCodeError"
+                    ></div>
+                  </template>
+                </div>
+              </div>
+
+              <!-- Submit Button -->
+              <div class="d-grid">
+                <button
+                  type="button"
+                  class="btn btn-primary btn-lg"
+                  id="sendOtpButton"
+                >
+                  Send OTP
+                </button>
+              </div>
+            </form>
+
+            <div class="mt-3 text-center">
+              <p>
+                Already have an account?
+                <a href="{% url 'login' %}" class="text-primary">Login here</a>.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- OTP Modal -->
+<div
+  class="modal fade"
+  id="otpModal"
+  tabindex="-1"
+  aria-labelledby="otpModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="otpModalLabel">Enter OTP</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body text-center">
+        <h6 id="mobileNumberDisplay"></h6>
+        <p>
+          Enter the 6-digit OTP code sent via SMS to complete your registration.
+        </p>
+        <form id="otpForm">
+          <div id="otpInputs" class="d-flex justify-content-center gap-2 mb-3">
+            <!-- OTP Inputs -->
+            <input
+              type="text"
+              maxlength="1"
+              class="form-control text-center otp-box"
+              style="width: 3rem; height: 3rem"
+              required
+            />
+            <input
+              type="text"
+              maxlength="1"
+              class="form-control text-center otp-box"
+              style="width: 3rem; height: 3rem"
+              required
+            />
+            <input
+              type="text"
+              maxlength="1"
+              class="form-control text-center otp-box"
+              style="width: 3rem; height: 3rem"
+              required
+            />
+            <input
+              type="text"
+              maxlength="1"
+              class="form-control text-center otp-box"
+              style="width: 3rem; height: 3rem"
+              required
+            />
+            <input
+              type="text"
+              maxlength="1"
+              class="form-control text-center otp-box"
+              style="width: 3rem; height: 3rem"
+              required
+            />
+            <input
+              type="text"
+              maxlength="1"
+              class="form-control text-center otp-box"
+              style="width: 3rem; height: 3rem"
+              required
+            />
+          </div>
+          <div class="d-grid">
+            <button type="button" class="btn btn-primary" id="verifyOtpButton">
+              Verify OTP
+            </button>
+          </div>
+        </form>
+        <p class="mt-3">
+          Haven't received the confirmation code yet?
+          <a href="#" id="resendOtpLink" class="text-primary">Resend</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<link
+  href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.12/dist/sweetalert2.min.css"
+  rel="stylesheet"
+/>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.12/dist/sweetalert2.min.js"></script>
+
+<script>
+  function showSweetAlert(message) {
+    Swal.fire({
+      title: message,
+      icon: "info",
+      toast: true,
+      position: "bottom-end", // Position changed to bottom-right
+      showConfirmButton: false,
+      timer: 3000, // Auto close after 3 seconds
+      timerProgressBar: true,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });
+  }
+
+  function formValidation() {
+    return {
+      username: "",
+      password: "",
+      password2: "",
+      mobile: "",
+      referralCode: "",
+      email: "",
+
+      get emailError() {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!this.email) {
+          return "Email is required.";
+        } else if (!emailRegex.test(this.email)) {
+          return "Please enter a valid email address.";
+        }
+        return "";
+      },
+
+      get mobileError() {
+        const mobileRegex = /^\+91[0-9]{10}$/;
+        if (!this.mobile) {
+          return "Mobile number is required.";
+        } else if (!mobileRegex.test(this.mobile)) {
+          return "";
+        }
+        return "";
+      },
+
+      get usernameError() {
+        if (this.username.length < 3) {
+          return "Username must be at least 3 characters long.";
+        } else if (this.username.length > 150) {
+          return "Username cannot exceed 150 characters.";
+        }
+        return "";
+      },
+
+      get passwordError() {
+        if (this.password.length < 8) {
+          return "Password must be at least 8 characters long.";
+        } else if (
+          !/[A-Za-z]/.test(this.password) ||
+          !/[0-9]/.test(this.password)
+        ) {
+          return "Password must include letters and numbers.";
+        }
+        return "";
+      },
+
+      get passwordMatchError() {
+        if (
+          this.password &&
+          this.password2 &&
+          this.password !== this.password2 &&
+          this.password2 !== ""
+        ) {
+          return "Passwords do not match.";
+        }
+        return "";
+      },
+      get referralCodeError() {
+        if (this.referralCode && this.referralCode.length > 8) {
+          return "Referral code must not exceed 8 characters.";
+        }
+        return "";
+      },
+
+      get hasErrors() {
+        return Boolean(
+          this.usernameError ||
+            this.passwordError ||
+            this.passwordMatchError ||
+            this.mobileError ||
+            this.emailError ||
+            this.referralCodeError
+        );
+      },
+    };
+  }
+
+  document.querySelectorAll(".otp-box").forEach((input, index, inputs) => {
+    input.addEventListener("input", (event) => {
+      const value = event.target.value;
+      if (value.length === 1 && index < inputs.length - 1) {
+        inputs[index + 1].focus();
+      } else if (value.length === 0 && index > 0) {
+        inputs[index - 1].focus();
+      }
+    });
+
+    input.addEventListener("keydown", (event) => {
+      if (event.key === "Backspace" && input.value.length === 0 && index > 0) {
+        inputs[index - 1].focus();
+      }
+    });
+  });
+
+  function sendOtp() {
+    const mobileInput = document.getElementById("mobile");
+    const mobileNumberDisplay = document.getElementById("mobileNumberDisplay");
+    const emailInput = document.getElementById("id_email");
+    let mobileNumber = mobileInput.value.trim();
+
+    mobileNumber = mobileNumber.replace(/\D/g, "");
+    const email = emailInput.value.trim();
+
+    const usernameInput = document.getElementById("id_username");
+    const passwordInput = document.getElementById("id_password1");
+    const password2Input = document.getElementById("id_password2");
+    const referralCodeInput = document.getElementById("referral_code"); // Referral code input
+    const referralCode = referralCodeInput.value.trim(); // Make sure this is the right variable name
+
+    if (
+      !usernameInput.value ||
+      !passwordInput.value ||
+      !password2Input.value ||
+      !mobileNumber
+    ) {
+      showSweetAlert("Please fill all the required fields.");
+      return;
+    }
+    if (passwordInput.value !== password2Input.value) {
+      showSweetAlert("Passwords do not match.");
+      return;
+    }
+
+    mobileNumberDisplay.textContent = mobileNumber;
+    const username = usernameInput.value.trim();
+
+    fetch("/accounts/send-otp/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        "X-CSRFToken": getCsrfToken(),
+      },
+      body: new URLSearchParams({
+        mobile: mobileNumber,
+        email: email,
+        username: username,
+        referral_code: referralCode,
+      }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          return response.json().then((errData) => {
+            throw new Error(errData.error || "Unknown error");
+          });
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if (data.error) {
+          showSweetAlert(data.error);
+        } else {
+          showSweetAlert(data.message);
+
+          const otpModal = new bootstrap.Modal(
+            document.getElementById("otpModal")
+          );
+          otpModal.show();
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        showSweetAlert(`${error.message}`);
+      });
+  }
+
+  document
+    .getElementById("verifyOtpButton")
+    .addEventListener("click", function () {
+      const otpValues = Array.from(document.querySelectorAll(".otp-box"))
+        .map((input) => input.value)
+        .join("");
+      const email = document.getElementById("id_email").value;
+      const mobile = document.getElementById("mobile").value;
+      const username = document.getElementById("id_username").value;
+      const password = document.getElementById("id_password1").value;
+      const referralCode = document
+        .getElementById("referral_code")
+        .value.trim(); // Include referral code
+
+      // Validate that all required fields are filled
+      if (otpValues.length === 6 && mobile && username && password) {
+        fetch("/accounts/verify-otp/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "X-CSRFToken": getCsrfToken(),
+          },
+          body: new URLSearchParams({
+            mobile: mobile,
+            otp: otpValues,
+            username: username, // Pass username
+            password1: password,
+            email: email,
+            referral_code: referralCode, // Pass password
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.message) {
+              showSweetAlert(data.message);
+              if (data.redirect) {
+                window.location.href = data.redirect; // Redirect after successful OTP verification
+              }
+            } else if (data.error) {
+              showSweetAlert(data.error); // Show error message if verification fails
+            }
+          })
+          .catch((error) => console.error("Error:", error)); // Handle fetch errors
+      } else {
+        showSweetAlert(
+          "Please fill all required fields, including OTP, mobile number, username, and password"
+        );
+      }
+    });
+
+  function getCsrfToken() {
+    return document.querySelector("[name=csrfmiddlewaretoken]").value;
+  }
+
+  document
+    .getElementById("resendOtpLink")
+    .addEventListener("click", function (e) {
+      e.preventDefault();
+      sendOtp();
+    });
+
+  document.getElementById("sendOtpButton").addEventListener("click", sendOtp);
+</script>
+{% endblock %}

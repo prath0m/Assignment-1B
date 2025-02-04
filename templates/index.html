@@ -1,0 +1,226 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+{% load custom_filters %}
+
+<div class="container-fluid bg-primary mb-5 wow fadeIn" data-wow-delay="0.1s" style="padding: 35px;">
+    <div class="container">
+        <form id="filter-form" method="get" hx-get="{% url 'home' %}" hx-target="#property-list" hx-select="#property-list"
+        hx-swap="innerHTML" hx-boost="true">
+        <div class="row g-2">
+            <form method="GET" action="" class="d-flex">
+                <div class="col-md-10">
+                    <div class="row g-2">
+                        <div class="col-md-4">
+                            <input 
+                                type="text" 
+                                name="keyword" 
+                                class="form-control border-0 py-3" 
+                                placeholder="Search Keyword" 
+                                value="{{ keyword }}">
+                        </div>
+                        <div class="col-md-4">
+                            <select name="property_type" class="form-select border-0 py-3">
+                                <option value="" {% if not property_type %}selected{% endif %}>Property Type</option>
+                                <option value="1BHK" {% if property_type == "1BHK" %}selected{% endif %}>1 BHK</option>
+                                <option value="2BHK" {% if property_type == "2BHK" %}selected{% endif %}>2 BHK</option>
+                                <option value="3BHK" {% if property_type == "3BHK" %}selected{% endif %}>3 BHK</option>
+                                <option value="4BHK" {% if property_type == "4BHK" %}selected{% endif %}>4 BHK</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <select name="property_category" class="form-select border-0 py-3">
+                                <option value="" {% if not property_category %}selected{% endif %}>Property Category</option>
+                                <option value="Rent" {% if property_category == "Rent" %}selected{% endif %}>Rent</option>
+                                <option value="Buy" {% if property_category == "Buy" %}selected{% endif %}>Resale</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-dark border-0 w-100 py-3">Search</button>
+                </div>
+            </form>
+        </div>
+            
+        </form>
+    </div>
+</div>    <!-- Property List Start -->
+        <div class="container-xxl py-5">
+            <div class="container">
+           
+                <div class="tab-content">
+                    <div id="tab-1" class="tab-pane fade show p-0 active">
+                        <div class="row g-4" id="property-list">
+                            {% for lead in page_obj %}
+                            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                                <div class="property-item rounded shadow-lg overflow-hidden">
+                                    <div class="position-relative">
+                                        <div class="badge bg-primary text-white position-absolute start-0 top-0 m-3 py-1 px-3 rounded-pill shadow-sm">For {{ lead.category }}</div>
+                                        {% if lead.id in viewed_properties %}
+                                            <div class="badge bg-dark text-white position-absolute end-0 top-0 m-3 py-1 px-3 rounded-pill shadow-sm">Viewed</div>
+                                        {% endif %}
+                                    </div>
+                            
+                                    <div class="p-4">
+                                        <h5 class="text-primary fw-bold mb-3"style="margin-top: 25px;">₹{{ lead.price }}</h5>
+                                        <h6 class="mb-2 text-dark fw-semibold">{{ lead.building }}</h6>
+                                        <p class="text-muted mb-4 small">
+                                            <i class="fa fa-map-marker-alt text-primary me-2"></i>
+                                            {{ lead.locality }}, {{ lead.city }}
+                                        </p>
+                            
+                                        <div class="d-flex justify-content-between text-center border-top pt-3">
+
+                                            <small class="flex-fill border-end">
+                                                <i class="fa fa-bed text-primary me-2"></i><strong>{{ lead.config }}</strong>
+                                            </small>
+                                            {% if lead.category == 'Buy' %}
+                                            <small class="flex-fill">
+                                                <i class="fa fa-ruler text-primary me-2"></i><strong>{{ lead.area }} Sqft</strong>
+                                            </small>
+                                            {%else%}
+                                            <small class="flex-fill">
+                                                <i class="fa fa-ruler text-primary me-2"></i><strong>{{ lead.area }}</strong>
+                                            </small>
+                                            {% endif %}
+
+                                        </div>
+                                    </div>  
+
+                                    
+                                    <div class="d-flex justify-content-between align-items-center border-top p-3">
+
+                                        <div class="d-flex align-items-center justify-content-center">
+                                            <i class="fa fa-user-circle text-muted me-2" style="font-size: 20px;"></i>
+                                            <h6 class="text-muted fw-bold mb-0">{{ lead.owners_name }}</h6>
+                                        </div>
+                                        <a class="btn btn-outline-success btn-sm d-flex align-items-center rounded-pill" 
+                                           aria-label="Chat on WhatsApp" 
+                                           href="#" 
+                                           onclick="handleContactClick('whatsapp', '{{ lead.owners_number | rstrip_0 }}', '{{ lead.id }}', 'whatsapp')">
+                                            <img alt="Chat on WhatsApp" src="{% static 'img/whatsapp.png' %}" class="me-2" style="width: 24px; height: 24px;">
+                                            <span>Whatsapp</span>
+                                        </a>
+                            
+                                        <a class="btn btn-outline-primary btn-sm d-flex align-items-center rounded-pill" 
+                                           aria-label="Call on Phone" 
+                                           href="#" 
+                                           onclick="handleContactClick('call', '{{ lead.owners_number }}', '{{ lead.id }}', 'call')">
+                                            <img alt="Call on Phone" src="{% static 'img/phone.png' %}" class="me-2" style="width: 24px; height: 24px;">
+                                            <span>Call</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>                            
+                            {% endfor %}
+
+                            <div class="d-flex justify-content-center my-4 wow fadeInUp" data-wow-delay="0.1s">
+                            <div class="pagination  d-flex align-items-center">
+                                    {% if page_obj.has_previous %}
+                                        <button hx-get="{% url 'home' %}?page={{ page_obj.previous_page_number }}&keyword={{ keyword }}&property_type={{ property_type }}&location={{ location }}" 
+                                                hx-target="#property-list" 
+                                                hx-select="#property-list" 
+                                                hx-swap="innerHTML" 
+                                                class="btn btn-primary mx-2">
+                                            Previous
+                                        </button>
+                                    {% endif %}
+                                
+                                    {% for page_num in page_obj.paginator.page_range %}
+                                        {% if page_num == page_obj.number %}
+                                            <button class="btn btn-primary active">{{ page_num }}</button>
+                                        {% elif page_num >= page_obj.number|add:-2 and page_num <= page_obj.number|add:2 %}
+                                            <button hx-get="{% url 'home' %}?page={{ page_num }}&keyword={{ keyword }}&property_type={{ property_type }}&location={{ location }}" 
+                                                    hx-target="#property-list" 
+                                                    hx-select="#property-list" 
+                                                    hx-swap="innerHTML" 
+                                                    class="btn btn-outline-primary mx-2">
+                                                {{ page_num }}
+                                            </button>
+                                        {% elif page_num == 1 or page_num == page_obj.paginator.num_pages %}
+                                            <button hx-get="{% url 'home' %}?page={{ page_num }}&keyword={{ keyword }}&property_type={{ property_type }}&location={{ location }}" 
+                                                    hx-target="#property-list" 
+                                                    hx-select="#property-list" 
+                                                    hx-swap="innerHTML" 
+                                                    class="btn btn-outline-primary mx-2">
+                                                {{ page_num }}
+                                            </button>
+                                        {% elif page_num == 2 and page_obj.number > 3 %}
+                                            <span class="mx-2">...</span>
+                                        {% elif page_num == page_obj.paginator.num_pages|add:-1 and page_obj.number < page_obj.paginator.num_pages|add:-2 %}
+                                            <span class="mx-2">...</span>
+                                        {% endif %}
+                                    {% endfor %}
+                                
+                                    {% if page_obj.has_next %}
+                                        <button hx-get="{% url 'home' %}?page={{ page_obj.next_page_number }}&keyword={{ keyword }}&property_type={{ property_type }}&location={{ location }}" 
+                                                hx-target="#property-list" 
+                                                hx-select="#property-list" 
+                                                hx-swap="innerHTML" 
+                                                class="btn btn-primary mx-2">
+                                            Next
+                                        </button>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+        <!-- Testimonial End -->
+        <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.12/dist/sweetalert2.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.12/dist/sweetalert2.min.js"></script>
+        <script>
+
+            function showSweetAlert(message) {
+                Swal.fire({
+                    title: message,
+                    icon: 'info',
+                    toast: true,
+                    position: 'bottom-end',  // Position changed to bottom-right
+                    showConfirmButton: false,
+                    timer: 3000,  // Auto close after 3 seconds
+                    timerProgressBar: true,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                });
+            }
+
+            function handleContactClick(contactType, ownerNumber, propertyId) {
+                fetch('/check_subscription/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}' // Include CSRF token for security
+                    },
+                    body: JSON.stringify({
+                        'contact_type': contactType,
+                        'owner_number': ownerNumber,
+                        'property_id': propertyId
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        if (data.contact_details) {
+                            if (contactType === 'whatsapp') {
+                                window.open('https://wa.me/' + data.contact_details, '_blank');
+                            } else if (contactType === 'call') {
+                                window.location.href = 'tel:' + data.contact_details;
+                            }
+                        }
+                    } else {
+                        showSweetAlert(data.message);
+                        setTimeout(() => {
+                            window.location.href = '/subscription/';
+                        }, 3000);
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            }
+        </script>
+{% endblock %}

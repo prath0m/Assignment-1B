@@ -1,0 +1,297 @@
+@charset "utf-8";
+@import url('https://fonts.googleapis.com/css?family=Muli:400,700');
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html {
+  height: 100%;
+}
+body {
+  height: 100%;
+  font-family: 'Muli', sans-serif;
+  color: #000;
+  box-sizing: border-box;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.wrapper {
+  width: 100%;
+  height: 100%;
+}
+.text-bold {
+  font-weight: 600;
+}
+
+.pricing-content {
+  display: flex;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  flex-direction: column;
+}
+
+.PageWidth {
+  max-width: 1150px;
+  width: 100%;
+  margin: 30px auto;
+}
+
+.pricing-content-items {
+  display: flex;
+  padding: 50px 0px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.pricing-item {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  transition: all .3s;
+  flex: 1 1 100%;
+  margin: 15px;
+}
+
+.pricing-item-box {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 35px 25px;
+  transition: all .6s;
+  border: 2px solid #eee;
+  border-radius: 10px;
+  cursor: pointer;
+  position: relative;
+}
+
+.plan-name {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.plan-text {
+  margin: 10px 0px;
+}
+
+.plan-price-content {
+  margin: 10px 0px;
+  color: #00B98E;
+}
+
+.plan-price {
+  font-size: 26px;
+  font-weight: 600;
+}
+
+.plan-features {
+  flex: 1;
+}
+
+.plan-feature-item {
+  color: #707070;
+  margin: 10px 0;
+  display: flex;
+  align-items: center;
+}
+
+.plan-button a {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  border: 1px solid #00B98E;
+  padding: 10px;
+  border-radius: 3px;
+  text-decoration: none;
+  color: #00B98E;
+  transition: all .3s;
+}
+
+.plan-button {
+  display: flex;
+  margin-top: 20px;
+}
+
+.plan-button-blue {
+  background: #00B98E;
+  color: #fff !important;
+}
+
+.plan-button a:hover {
+  background: #00B98E;
+  color: #fff;
+}
+
+.pricing-item:hover .pricing-item-box {
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+  border-color: transparent;
+  transform: translateY(-10px);
+}
+
+.plan-feature-item:before {
+  content: "";
+  width: 14px;
+  height: 14px;
+  background: #eee;
+  margin-right: 7px;
+  margin-bottom: 2px;
+}
+
+.ribbon:before, .ribbon:after {
+  content: "";
+  display: block;
+  position: absolute;
+  height: 0px;
+  bottom: -8px;
+  border: 13px solid #ff2020;
+}
+
+.ribbon {
+  position: absolute;
+  right: 36px;
+  top: 17px;
+}
+
+.ribbon:before {
+  border-bottom-color: transparent;
+  bottom: -26px;
+}
+
+table.invoices-table {
+  width: 100%;
+  font-size: 15px;
+  color: #707070;
+  border-spacing: 0;
+}
+
+table.invoices-table tr th {
+  text-align: left;
+  padding: 8px 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+table.invoices-table tr td {
+  padding: 8px 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+table.invoices-table tr td:nth-child(5), table.invoices-table tr th:nth-child(5) {
+  justify-content: flex-end;
+  display: flex;
+}
+
+table.invoices-table tr td:nth-child(1), table.invoices-table tr th:nth-child(1) {
+  width: 30%;
+}
+
+.pricing-content-items-tabs {
+  display: flex;
+  flex-direction: column;
+  padding: 50px 0px;
+}
+
+.pricing-yearly {
+  display: flex;
+  margin-bottom: 50px;
+}
+
+.pricing-monthly {
+  display: none;
+  margin-bottom: 50px;
+}
+
+.pricing-monthly.active-tab-content {
+  display: flex;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+
+  .pricing-content {
+    flex-direction: column;
+  }
+
+  .pricing-content-items {
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .pricing-item {
+    flex: 1 1 100%;
+    margin: 10px 0;
+  }
+
+  .pricing-item-box {
+    padding: 20px;
+  }
+
+  .plan-name {
+    font-size: 18px;
+  }
+
+  .plan-price {
+    font-size: 22px;
+  }
+
+  .plan-button a {
+    padding: 8px;
+  }
+
+  .pricing-content-items-tabs {
+    padding: 20px 0;
+  }
+
+  .pricing-yearly, .pricing-monthly {
+    flex-direction: column;
+  }
+
+  table.invoices-table {
+    font-size: 14px;
+  }
+
+  table.invoices-table tr th, table.invoices-table tr td {
+    padding: 5px 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    font-size: 12px;
+  }
+
+  .pricing-content-items {
+    padding: 15px;
+  }
+
+  .pricing-item-box {
+    padding: 15px;
+  }
+
+  .plan-name {
+    font-size: 16px;
+  }
+
+  .plan-price {
+    font-size: 20px;
+  }
+
+  .plan-button a {
+    font-size: 12px;
+  }
+
+  .pricing-content-items-tabs {
+    padding: 10px 0;
+  }
+
+  table.invoices-table {
+    font-size: 12px;
+  }
+
+  table.invoices-table tr th, table.invoices-table tr td {
+    padding: 5px 6px;
+  }
+}

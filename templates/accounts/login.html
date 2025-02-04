@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="card border-0 shadow">
+                    <div class="card-body">
+                        <h3 class="text-center mb-4">Login to Your Account</h3>
+
+                        <!-- Login Form -->
+                        <form method="post" x-data="loginValidation()">
+                            {% csrf_token %}
+
+                            <!-- Username -->
+                            <div class="mb-3">
+                                <label for="id_username" class="form-label">Username</label>
+                                <input 
+                                    type="text" 
+                                    id="id_username" 
+                                    name="username" 
+                                    class="form-control" 
+                                    placeholder="Enter your username"
+                                    x-model="username"
+                                    x-bind:class="{'is-invalid': usernameError}"
+                                    required
+                                >
+                                <template x-if="usernameError">
+                                    <div class="invalid-feedback" x-text="usernameError"></div>
+                                </template>
+                            </div>
+    
+                            <!-- Password -->
+                            <div class="mb-3">
+                                <label for="id_password" class="form-label">Password</label>
+                                <input 
+                                    type="password" 
+                                    id="id_password" 
+                                    name="password" 
+                                    class="form-control" 
+                                    placeholder="Enter your password"
+                                    x-model="password"
+                                    x-bind:class="{'is-invalid': passwordError}"
+                                    required
+                                >
+                                <template x-if="passwordError">
+                                    <div class="invalid-feedback" x-text="passwordError"></div>
+                                </template>
+                            </div>
+
+                            <div class="mt-2 text">
+                                <p><a href="{% url 'password_reset' %}" class="text-primary">Forgot your password?</a></p>
+                            </div>
+                            
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary btn-lg" :disabled="hasErrors">
+                                    Login
+                                </button>
+                            </div>
+                        </form>
+
+                        <div class="mt-3 text-center">
+                            <p>Don't have an account? <a href="{% url 'signup' %}" class="text-primary">Sign up here</a>.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Include SweetAlert2 -->
+<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.12/dist/sweetalert2.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.12/dist/sweetalert2.min.js"></script>
+
+<script>
+    // Function to show SweetAlert with proper settings
+    function showSweetAlert(message) {
+        Swal.fire({
+            title: message,
+            icon: 'info',
+            toast: true,
+            position: 'bottom-end',  // Position changed to bottom-right
+            showConfirmButton: false,
+            timer: 3000,  // Auto close after 3 seconds
+            timerProgressBar: true,
+            didOpen: () => {
+                Swal.showLoading();
+            }
+        });
+    }
+
+    // Check if login failed and trigger SweetAlert
+    {% if login_failed %}
+        showSweetAlert('Invalid username or password. Please try again.');
+    {% endif %}
+</script>
+
+<script>
+    function loginValidation() {
+        return {
+            username: '',
+            password: '',
+            get usernameError() {
+                if (!this.username) {
+                    return 'Username is required.';
+                } else if (this.username.length < 3) {
+                    return 'Username must be at least 3 characters long.';
+                } else if (this.username.length > 150) {
+                    return 'Username cannot exceed 150 characters.';
+                }
+                return '';
+            },
+            get passwordError() {
+                if (!this.password) {
+                    return 'Password is required.';
+                } else if (this.password.length < 8) {
+                    return 'Password must be at least 8 characters long.';
+                }
+                return '';
+            },
+            get hasErrors() {
+                return Boolean(this.usernameError || this.passwordError);
+            }
+        };
+    }
+</script>
+
+{% endblock %}

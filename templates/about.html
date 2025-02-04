@@ -1,0 +1,448 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+{% load custom_filters %}
+
+<!-- Hero Section -->
+<!-- About Us Banner -->
+<div class="container-fluid bg-primary mb-5 wow fadeIn" data-wow-delay="0.1s" style="padding: 60px 0;">
+    <div class="container text-center">
+        <h1 class="display-4 text-white fw-bold">About Us</h1>
+        <p class="text-white mb-0 fs-5">Discover CP Network – the platform that empowers brokers and property owners to succeed in real estate through trust and innovation.</p>
+    </div>
+</div>
+
+<!-- About Us Section -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
+                <h2 class="fw-bold text-primary mb-4">At CP Network, We Bridge the Gap</h2>
+                <p class="text-muted mb-4 fs-5">
+                    At CP Network, we understand the challenges brokers face when finding reliable property listings. That’s why we’ve made it our mission to bridge the gap between property owners and brokers, creating a space where trust, transparency, and opportunities thrive.
+                </p>
+                <p class="text-muted mb-4 fs-5">
+                    We're not just another platform; we’re a community built to empower real estate professionals. Our vision is to simplify property transactions, making them seamless and accessible. Whether you’re a seasoned broker or just starting, we’re here to equip you with verified listings, tools, and resources to succeed in a competitive market.
+                </p>
+                <p class="text-muted mb-4 fs-5">
+                    At CP Network, we believe in building long-term relationships, not just transactions. Together, let’s create a real estate ecosystem where everyone wins—one connection at a time.
+                </p>
+            </div>
+            <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
+                <div class="position-relative rounded overflow-hidden shadow-lg">
+                    <img class="img-fluid" src="{% static 'img/20250119_114427.png' %}" alt="CP Network About Us">
+                    <div class="badge bg-primary text-white position-absolute top-0 start-0 m-3 py-2 px-4 rounded-pill shadow-sm">
+                        Connecting Brokers and Property Owners
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div > 
+
+
+<!-- Contact Us Section -->
+<div class="container-xxl py-5 bg-light" id="contact-us">
+    <div class="container">
+        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+            <h2 class="fw-bold text-primary mb-4">Contact Us</h2>
+            <p class="text-muted mb-5">If you have any questions or concerns, feel free to reach out to us. We're here to help!</p>
+        </div>
+        <div class="row g-4 justify-content-center">
+            <!-- Email Contact -->
+            <div class="col-md-6 wow fadeInUp" data-wow-delay="0.2s">
+                <div class="d-flex justify-content-start align-items-center">
+                    <i class="bi bi-envelope-fill fs-3 me-3 text-primary"></i>
+                    <div>
+                        <h5 class="fw-bold mb-2">Email</h5>
+                        <p class="text-muted mb-0">For any inquiries, support, or questions, feel free to email us:</p>
+                        <a href="mailto:support@cpnetwork.in" class="text-decoration-none text-primary fs-5 fw-bold">support@cpnetwork.in</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Button -->
+        <div class="text-center mt-5">
+            <a href="mailto:support@cpnetwork.in" class="btn btn-primary btn-lg rounded-pill shadow-lg">Contact Us Now</a>
+        </div>
+    </div>
+</div>
+
+
+<!-- Refund Policy Section -->
+<div class="container-xxl py-5 " id = "Refund-Policy">
+    <div class="container">
+        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+            <h2 class="fw-bold text-primary mb-4">Refund Policy</h2>
+            <p class="text-muted mb-5">Your satisfaction is our priority. Here’s how we handle refunds:</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-12 wow fadeInUp" data-wow-delay="0.1s">
+                <!-- Section 1: Subscription Cancellation and Refunds -->
+                <div class="mb-4">
+                    <h5 class="fw-bold mb-3">1. Subscription Cancellation and Refunds</h5>
+                    <p class="text-muted">If you’ve subscribed to our services on a monthly basis, you may cancel your subscription at any time through your account settings or by contacting our support team. Upon cancellation:</p>
+                    <ul class="text-muted ps-4">
+                        <li><strong>You will retain access to our services until the end of the current billing cycle.</strong></li>
+                        <li><strong>No additional charges will be incurred for the subsequent periods.</strong></li>
+                    </ul>
+                </div>
+
+                <!-- Section 2: Eligibility for Refunds -->
+                <div class="mb-4">
+                    <h5 class="fw-bold mb-3">2. Eligibility for Refunds</h5>
+                    <ul class="text-muted ps-4">
+                        <li><strong>Dissatisfaction with Services:</strong> If you’re not satisfied with our services, you may request a refund within 30 days of your subscription purchase.</li>
+                        <li><strong>Technical Issues:</strong> Report any technical issues, and we will work diligently to resolve them. If unresolved, you may qualify for a refund.</li>
+                        <li><strong>Non-Compliance:</strong> Refund requests must meet the terms of this policy, including compliance with the cancellation process.</li>
+                    </ul>
+                </div>
+
+                <!-- Section 3: Contact Information -->
+                <div class="mb-4">
+                    <h5 class="fw-bold mb-3">3. Contact Information</h5>
+                    <p class="text-muted">For assistance regarding refunds, please reach out to our support team at <a href="mailto:support@cpnetwork.in" class="text-decoration-none text-primary">support@cpnetwork.in</a>. We are here to assist you!</p>
+                </div>
+
+                <div class="mb-4">
+                    <h5 class="fw-bold mb-3">4. Policy Update</h5>
+                    <p class="text-muted">CP Network reserves the right to make changes to this refund policy at any time without prior notice. Any updates will take immediate effect upon being posted on our website. We encourage you to review this policy periodically to stay informed about our practices.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-xxl py-5 bg-light" id="Privacy-Policy">
+    <div class="container">
+        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+            <h2 class="fw-bold text-primary mb-4">Privacy Policy – CP Network</h2>
+            <p class="text-muted mb-5">At CP Network, your privacy is important to us. This Privacy Policy explains how we collect, use, and safeguard your personal information when you use our services. By accessing or using our platform, you agree to the terms outlined in this policy.</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-12 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="accordion" id="privacyAccordion">
+                    <!-- Privacy Policy Item 1 -->
+                    <div class="accordion-item border-0 rounded shadow-sm mb-3">
+                        <h5 class="accordion-header" id="privacyHeadingOne">
+                            <button class="accordion-button collapsed p-4 text-start" type="button" data-bs-toggle="collapse" data-bs-target="#privacyCollapseOne" aria-expanded="false" aria-controls="privacyCollapseOne">
+                                1. Information We Collect
+                            </button>
+                        </h5>
+                        <div id="privacyCollapseOne" class="accordion-collapse collapse" aria-labelledby="privacyHeadingOne" data-bs-parent="#privacyAccordion">
+                            <div class="accordion-body py-4 px-5">
+                                We collect various types of information to provide effective services, including:
+                                <ul>
+                                    <li><strong>Personal Information:</strong> Name, email address, phone number, and other contact details, as well as payment information.</li>
+                                    <li><strong>Usage Data:</strong> Information on how you interact with our platform, such as pages viewed, time spent, and device information (e.g., IP address, browser type).</li>
+                                    <li><strong>Property Listings:</strong> Data on properties listed by users, such as descriptions, locations, and contact details.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Privacy Policy Item 2 -->
+                    <div class="accordion-item border-0 rounded shadow-sm mb-3">
+                        <h5 class="accordion-header" id="privacyHeadingTwo">
+                            <button class="accordion-button collapsed p-4 text-start" type="button" data-bs-toggle="collapse" data-bs-target="#privacyCollapseTwo" aria-expanded="false" aria-controls="privacyCollapseTwo">
+                                2. How We Use Your Information
+                            </button>
+                        </h5>
+                        <div id="privacyCollapseTwo" class="accordion-collapse collapse" aria-labelledby="privacyHeadingTwo" data-bs-parent="#privacyAccordion">
+                            <div class="accordion-body py-4 px-5">
+                                We use the collected information for the following purposes:
+                                <ul>
+                                    <li>To provide, maintain, and improve our services.</li>
+                                    <li>To facilitate property transactions between brokers and property owners.</li>
+                                    <li>To send important updates, offers, and notifications.</li>
+                                    <li>To ensure security and prevent misuse of our platform.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Privacy Policy Item 3 -->
+                    <div class="accordion-item border-0 rounded shadow-sm mb-3">
+                        <h5 class="accordion-header" id="privacyHeadingThree">
+                            <button class="accordion-button collapsed p-4 text-start" type="button" data-bs-toggle="collapse" data-bs-target="#privacyCollapseThree" aria-expanded="false" aria-controls="privacyCollapseThree">
+                                3. Sharing Your Information
+                            </button>
+                        </h5>
+                        <div id="privacyCollapseThree" class="accordion-collapse collapse" aria-labelledby="privacyHeadingThree" data-bs-parent="#privacyAccordion">
+                            <div class="accordion-body py-4 px-5">
+                                We share your information under specific circumstances:
+                                <ul>
+                                    <li><strong>With service providers:</strong> Third-party vendors assisting with platform operation (e.g., payment processors, hosting services).</li>
+                                    <li><strong>As required by law:</strong> For compliance with legal obligations or to respond to lawful requests.</li>
+                                    <li><strong>With your consent:</strong> If you opt into additional services or features.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Privacy Policy Item 4 -->
+                    <div class="accordion-item border-0 rounded shadow-sm mb-3">
+                        <h5 class="accordion-header" id="privacyHeadingFour">
+                            <button class="accordion-button collapsed p-4 text-start" type="button" data-bs-toggle="collapse" data-bs-target="#privacyCollapseFour" aria-expanded="false" aria-controls="privacyCollapseFour">
+                                4. Protecting Your Information
+                            </button>
+                        </h5>
+                        <div id="privacyCollapseFour" class="accordion-collapse collapse" aria-labelledby="privacyHeadingFour" data-bs-parent="#privacyAccordion">
+                            <div class="accordion-body py-4 px-5">
+                                We take data protection seriously, employing industry-standard security measures such as encryption, secure servers, and regular security audits to safeguard your personal information.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Privacy Policy Item 5 -->
+                    <div class="accordion-item border-0 rounded shadow-sm mb-3">
+                        <h5 class="accordion-header" id="privacyHeadingFive">
+                            <button class="accordion-button collapsed p-4 text-start" type="button" data-bs-toggle="collapse" data-bs-target="#privacyCollapseFive" aria-expanded="false" aria-controls="privacyCollapseFive">
+                                5. Your Rights
+                            </button>
+                        </h5>
+                        <div id="privacyCollapseFive" class="accordion-collapse collapse" aria-labelledby="privacyHeadingFive" data-bs-parent="#privacyAccordion">
+                            <div class="accordion-body py-4 px-5">
+                                As a user, you have the following rights:
+                                <ul>
+                                    <li>Access, update, or delete your personal information.</li>
+                                    <li>Opt out of receiving marketing communications.</li>
+                                    <li>Request clarification about how your data is handled.</li>
+                                </ul>
+                                <p>If you'd like to exercise these rights, contact us at <a href="mailto:support@cpnetwork.in">support@cpnetwork.in</a>.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Privacy Policy Item 6 -->
+                    <div class="accordion-item border-0 rounded shadow-sm mb-3">
+                        <h5 class="accordion-header" id="privacyHeadingSix">
+                            <button class="accordion-button collapsed p-4 text-start" type="button" data-bs-toggle="collapse" data-bs-target="#privacyCollapseSix" aria-expanded="false" aria-controls="privacyCollapseSix">
+                                6. Cookies and Tracking Technologies
+                            </button>
+                        </h5>
+                        <div id="privacyCollapseSix" class="accordion-collapse collapse" aria-labelledby="privacyHeadingSix" data-bs-parent="#privacyAccordion">
+                            <div class="accordion-body py-4 px-5">
+                                Yes, we use cookies and similar technologies to improve your experience and collect usage data. You can manage your cookie preferences through your browser settings.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Privacy Policy Item 7 -->
+                    <div class="accordion-item border-0 rounded shadow-sm mb-3">
+                        <h5 class="accordion-header" id="privacyHeadingSeven">
+                            <button class="accordion-button collapsed p-4 text-start" type="button" data-bs-toggle="collapse" data-bs-target="#privacyCollapseSeven" aria-expanded="false" aria-controls="privacyCollapseSeven">
+                                7. Third-Party Links
+                            </button>
+                        </h5>
+                        <div id="privacyCollapseSeven" class="accordion-collapse collapse" aria-labelledby="privacyHeadingSeven" data-bs-parent="#privacyAccordion">
+                            <div class="accordion-body py-4 px-5">
+                                Our platform may contain links to third-party websites. Please note that we are not responsible for the privacy practices of these external sites. We encourage you to review their policies before sharing any information.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="container-xxl py-5" id ="Terms-of-Use">
+    <div class="container">
+        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+            <h2 class="fw-bold text-primary mb-4">Terms of Use</h2>
+            <p class="text-muted mb-5">By using CP Network, you agree to these terms and conditions.</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-12 wow fadeInUp" data-wow-delay="0.1s">
+                <!-- Section 1: Acceptance of Terms -->
+                <div class="mb-4">
+                    <h5 class="fw-bold mb-3">1. Acceptance of Terms</h5>
+                    <p class="text-muted">By accessing or using CP Network, you agree to these Terms and our Privacy Policy. If you do not agree with any of these terms, please refrain from using our platform.</p>
+                </div>
+
+                <!-- Section 2: User Accounts -->
+                <div class="mb-4">
+                    <h5 class="fw-bold mb-3">2. User Accounts</h5>
+                    <p class="text-muted">To use CP Network, you must create an account and provide accurate information. You are responsible for maintaining the confidentiality of your account credentials.</p>
+                    <ul class="text-muted ps-4">
+                        <li>Provide accurate information during registration.</li>
+                        <li>You are responsible for maintaining account security and confidentiality of your credentials.</li>
+                        <li>Notify us immediately of any unauthorized use of your account.</li>
+                    </ul>
+                </div>
+
+                <!-- Section 3: Use of the Platform -->
+                <div class="mb-4">
+                    <h5 class="fw-bold mb-3">3. Use of the Platform</h5>
+                    <p class="text-muted">You agree to use CP Network only for lawful purposes and in compliance with applicable laws. You must not misuse the platform or its features, and any violations may result in suspension or termination of your account.</p>
+                </div>
+
+                <!-- Section 4: Liability -->
+                <div class="mb-4">
+                    <h5 class="fw-bold mb-3">4. Limitation of Liability</h5>
+                    <p class="text-muted">CP Network is not responsible for any damages or losses incurred due to the use or inability to use the platform, including any property damage or loss of income. We are only liable to the extent permitted by law.</p>
+                </div>
+
+                <div class="mb-4">
+                    <h5 class="fw-bold mb-3">5. Payments and Subscriptions</h5>
+                    <p class="text-muted">If you subscribe to premium services, you agree to pay all applicable fees as outlined during registration. Failure to make timely payments may result in the suspension or termination of your access to paid features.</p>
+                </div>
+
+                <div class="mb-4">
+                    <h5 class="fw-bold mb-3">6. Termination</h5>
+                    <p class="text-muted">We reserve the right to suspend or terminate your account if you violate these Terms or engage in unauthorized activities</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- FAQ Section -->
+<!-- FAQ Section -->
+<div class="container-xxl py-5 bg-light" id="FAQ">
+    <div class="container">
+        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+            <h2 class="fw-bold text-primary mb-4">FAQ – CP Network</h2>
+            <p class="text-muted mb-5">Frequently asked questions about using CP Network. Click on a question to view the answer.</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-12 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="accordion" id="faqAccordion">
+                    <!-- FAQ Item 1 -->
+                    <div class="accordion-item border-0 rounded shadow-sm mb-3">
+                        <h5 class="accordion-header" id="faqHeadingOne">
+                            <button class="accordion-button collapsed p-4 text-start" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseOne" aria-expanded="false" aria-controls="faqCollapseOne">
+                                1. What is CP Network?
+                            </button>
+                        </h5>
+                        <div id="faqCollapseOne" class="accordion-collapse collapse" aria-labelledby="faqHeadingOne" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body py-4 px-5">
+                                CP Network is a platform that connects brokers with verified property listings, ensuring genuine opportunities for rental and resale properties.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 2 -->
+                    <div class="accordion-item border-0 rounded shadow-sm mb-3">
+                        <h5 class="accordion-header" id="faqHeadingTwo">
+                            <button class="accordion-button collapsed p-4 text-start" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseTwo" aria-expanded="false" aria-controls="faqCollapseTwo">
+                                2. Who can use CP Network?
+                            </button>
+                        </h5>
+                        <div id="faqCollapseTwo" class="accordion-collapse collapse" aria-labelledby="faqHeadingTwo" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body py-4 px-5">
+                                Our platform is tailored for:
+                                <ul>
+                                    <li>Brokers and real estate agents.</li>
+                                    <li>Property owners listing rental or resale properties.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 3 -->
+                    <div class="accordion-item border-0 rounded shadow-sm mb-3">
+                        <h5 class="accordion-header" id="faqHeadingThree">
+                            <button class="accordion-button collapsed p-4 text-start" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseThree" aria-expanded="false" aria-controls="faqCollapseThree">
+                                3. How do I register on CP Network?
+                            </button>
+                        </h5>
+                        <div id="faqCollapseThree" class="accordion-collapse collapse" aria-labelledby="faqHeadingThree" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body py-4 px-5">
+                                It’s simple!
+                                <ul>
+                                    <li>Click the “Sign Up” button on the homepage.</li>
+                                    <li>Provide your details, such as name, email, and phone number.</li>
+                                    <li>Verify your account through the OTP verification.</li>
+                                    <li>You’re all set to start exploring property listings!</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 4 -->
+                    <div class="accordion-item border-0 rounded shadow-sm mb-3">
+                        <h5 class="accordion-header" id="faqHeadingFour">
+                            <button class="accordion-button collapsed p-4 text-start" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseFour" aria-expanded="false" aria-controls="faqCollapseFour">
+                                4. Are the property listings verified?
+                            </button>
+                        </h5>
+                        <div id="faqCollapseFour" class="accordion-collapse collapse" aria-labelledby="faqHeadingFour" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body py-4 px-5">
+                                Yes, we prioritize verified listings to ensure transparency and trust. We strive to maintain the highest standards of authenticity in the listings shared on the platform.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 5 -->
+                    <div class="accordion-item border-0 rounded shadow-sm mb-3">
+                        <h5 class="accordion-header" id="faqHeadingFive">
+                            <button class="accordion-button collapsed p-4 text-start" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseFive" aria-expanded="false" aria-controls="faqCollapseFive">
+                                5. Is there a fee to use CP Network?
+                            </button>
+                        </h5>
+                        <div id="faqCollapseFive" class="accordion-collapse collapse" aria-labelledby="faqHeadingFive" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body py-4 px-5">
+                                Brokers may require a subscription for premium listings and advanced tools.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 6 -->
+                    <div class="accordion-item border-0 rounded shadow-sm mb-3">
+                        <h5 class="accordion-header" id="faqHeadingSix">
+                            <button class="accordion-button collapsed p-4 text-start" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseSix" aria-expanded="false" aria-controls="faqCollapseSix">
+                                6. What happens if I face technical issues?
+                            </button>
+                        </h5>
+                        <div id="faqCollapseSix" class="accordion-collapse collapse" aria-labelledby="faqHeadingSix" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body py-4 px-5">
+                                We’re here to help! If you encounter any problems, contact our support team at <a href="mailto:support@cpnetwork.in">support@cpnetwork.in</a>. We’ll work to resolve your issue promptly.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 7 -->
+                    <div class="accordion-item border-0 rounded shadow-sm mb-3">
+                        <h5 class="accordion-header" id="faqHeadingSeven">
+                            <button class="accordion-button collapsed p-4 text-start" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseSeven" aria-expanded="false" aria-controls="faqCollapseSeven">
+                                7. Is my personal information safe on CP Network?
+                            </button>
+                        </h5>
+                        <div id="faqCollapseSeven" class="accordion-collapse collapse" aria-labelledby="faqHeadingSeven" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body py-4 px-5">
+                                Absolutely! We follow strict privacy and security protocols to protect your data. For more details, check our Privacy Policy
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 8 -->
+                    <div class="accordion-item border-0 rounded shadow-sm mb-3">
+                        <h5 class="accordion-header" id="faqHeadingEight">
+                            <button class="accordion-button collapsed p-4 text-start" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseEight" aria-expanded="false" aria-controls="faqCollapseEight">
+                                8. How often are new properties listed on CP Network?
+                            </button>
+                        </h5>
+                        <div id="faqCollapseEight" class="accordion-collapse collapse" aria-labelledby="faqHeadingEight" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body py-4 px-5">
+                                New properties are added daily to ensure our users have access to the latest opportunities in the market.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

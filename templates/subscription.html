@@ -1,0 +1,188 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Pricing Table</title>
+    <!-- Link to CSS file -->
+    <link rel="stylesheet" href="{% static '/css/subscription.css' %}">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+	<div class="wrapper">
+		<div class="pricing-content">
+			<div class="PageWidth">
+				<div class="pricing-detail-content">
+			
+					<div class="pricing-content-items-tabs">
+						<div class="pricing-yearly">
+						
+							<div class="pricing-item">
+								<div class="pricing-item-box">
+								<div class="plan-name">Starter Plan</div>
+								<div class="plan-text"><span class="text-bold"></div>
+
+								<div class="plan-price-content">
+									<div class="plan-price" data-amount="4499">₹4499</div>
+								</div>
+
+								<div class="plan-features">
+									<div class="plan-feature-item">For 1 Month</div>
+									<div class="plan-feature-item">30 Days</div> 
+									<div class="plan-feature-item">250 No. Contact</div> 
+								</div>
+								{% csrf_token %}
+								<div class="plan-button" onclick="payWithRazorpay(event)">
+									<a>Buy Pro</a>
+								</div>
+								</div>
+							</div>
+							<div class="pricing-item">
+								<div class="pricing-item-box">
+								<div class="plan-name">Growth Plan</div>
+								<div class="plan-text"></div>
+
+								<div class="plan-price-content">
+									<div class="plan-price" data-amount="8999">₹8,999</div>
+								</div>
+
+								<div class="plan-features">
+									<div class="plan-feature-item"><span class="text-bold">33.34% Discount</span></div>
+									<div class="plan-feature-item"><span class="text-bold">₹2,999/month</span></div>
+									<div class="plan-feature-item">For 3 Months</div>
+									<div class="plan-feature-item">90 Days</div>
+									<div class="plan-feature-item">750 No. Contact </div>
+								</div>
+								<div class="plan-button" onclick="payWithRazorpay(event)"><a>Buy Now</a></div>
+								</div>
+							</div>
+							<div class="pricing-item">
+								<div class="pricing-item-box">
+								<div class="plan-name">Pro Plan</div>
+								<div class="plan-text"></div>
+
+								<div class="plan-price-content">
+									<div class="plan-price" data-amount="16999">₹16,999</div>
+								</div>
+
+								<div class="plan-features">
+									<div class="plan-feature-item"><span class="text-bold">37.04% Discount</span></div>
+									<div class="plan-feature-item"><span class="text-bold">₹2,833/month</span></div>
+									<div class="plan-feature-item">For 6 Months</div>
+									<div class="plan-feature-item">180 Days</div>
+									<div class="plan-feature-item">1,500 No. Contact </div>
+								</div>
+
+								<div class="plan-button" onclick="payWithRazorpay(event)"><a>Buy Pro</a></div>
+								</div>
+							</div>
+							<div class="pricing-item">
+								<div class="pricing-item-box">
+									<span class="ribbon"></span>
+								<div class="plan-name">Ultimate Plan</div>
+								<div class="plan-text"></div>
+
+								<div class="plan-price-content">
+									<div class="plan-price" data-amount="27999">₹27,999</div>
+								</div>
+
+								<div class="plan-features">
+									<div class="plan-feature-item"><span class="text-bold">48.15% Discount</span></div>
+									<div class="plan-feature-item"><span class="text-bold">₹2,333/month</span></div>
+									<div class="plan-feature-item">For 12 Months</div>
+									<div class="plan-feature-item">360 Days</div>
+									<div class="plan-feature-item">3,000 No. Contact</div>
+								</div>
+								<div class="plan-button" onclick="payWithRazorpay(event)"><a class="plan-button-blue">Buy Ultimate</a></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+		    </div>
+		</div>
+	</div>
+</body>
+</html>
+
+	<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.12/dist/sweetalert2.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.12/dist/sweetalert2.min.js"></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+	<script>
+
+		function showSweetAlert(message) {
+			Swal.fire({
+				title: message,
+				icon: 'info',
+				toast: true,
+				position: 'bottom-end',  // Position changed to bottom-right
+				showConfirmButton: false,
+				timer: 3000,  // Auto close after 3 seconds
+				timerProgressBar: true,
+				didOpen: () => {
+					Swal.showLoading();
+				}
+			});
+		}
+
+		function payWithRazorpay(event) {
+			var csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+			var button = event.currentTarget;
+			var pricingItem = button.closest('.pricing-item');
+			var planName = pricingItem.querySelector('.plan-name').innerText.trim();
+			var contactsAssigned = pricingItem.querySelector('.contacts-assigned')  
+
+			$.ajax({
+				url: "{% url 'create_razorpay_order' %}",
+				method: "POST",
+				dataType: "json",
+				data: {
+					csrfmiddlewaretoken: csrfToken,
+					plan_name: planName  
+				},
+				success: function(response) {  
+					var options = {
+						key: response.razorpay_key,
+						amount: response.order_amount * 100,  
+						currency: response.currency,
+						name: "Your Service Name",
+						description: "Payment for plan",
+						order_id: response.order_id,
+						handler: function (paymentResponse) {
+							$.ajax({
+								url: "{% url 'verify_payment' %}",
+								method: "POST",
+								data: {
+									csrfmiddlewaretoken: csrfToken,
+									order_id: paymentResponse.razorpay_order_id,
+									payment_id: paymentResponse.razorpay_payment_id,
+									razorpay_signature: paymentResponse.razorpay_signature,
+									plan: planName,  
+									contacts_assigned: contactsAssigned  
+								},
+								success: function(response) {
+									showSweetAlert("Payment and Subscription Successful!");
+								},
+								error: function(error) {
+									showSweetAlert("Error updating subscription: " + error.responseText);
+								}
+							});						
+						},
+						theme: {
+							color: "#F37254"
+						}
+					};
+					var rzp1 = new Razorpay(options);
+					rzp1.open();
+				},
+				
+				error: function(error) {
+					showSweetAlert("Error creating Razorpay order: " + error.responseText);
+				}
+			});			
+		}
+	</script>
+{% endblock %}
